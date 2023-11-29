@@ -88,6 +88,8 @@ public class FriendsListTest {
     private static final String TAG = "FriendsListTest";
     private UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
     private int DEFAULT_TIMEOUT = 2000;
+
+    boolean TEST_CHECK = false;
     @Rule
     public GrantPermissionRule mGrantPermissionRule =
             GrantPermissionRule.grant(
@@ -105,8 +107,10 @@ public class FriendsListTest {
 
         UiObject2 addFriendButton = device.findObject(By.text("Add Friend"));
         if(addFriendButton != null){
+            TEST_CHECK = true;
             addFriendButton.click();
         }
+        assertEquals(true, TEST_CHECK);
         Log.d(TAG, "FriendsListTest: Successfully Added Friend: "+defaultFriend1);
         sleep(10000);
 
@@ -116,8 +120,11 @@ public class FriendsListTest {
     @Test
     public void testRefreshFriendsList() throws InterruptedException {
 
+
         Espresso.onView(ViewMatchers.withId(R.id.friendsListRefreshButton)).perform(click());
         Log.d(TAG, "FriendsListTest: Successfully Refreshed Friends");
+        TEST_CHECK = true;
+        assertEquals(true, TEST_CHECK);
         sleep(10000);
     }
 
